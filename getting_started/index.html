@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+    <!-- Name: Michael A. Robins  -->
+    <!-- Start Date: 2/6/2024 -->
+    <!-- Project: Getting Started With Phaser -->
+    <!-- MOD LOG: ------------------------------------
+        - VERSION     - DATE            - DESCRIPTION
+        ----------------------------------------------
+
+        - 0.5       - 2/6/2024        - Set up Tutorial folder | created index.html file for the starting point of the game | Set up standard meta tags for viewport and character encoding | Initial title for phase 1 set to 'Tutorial App | Phaser' | Used git to initiate a new git repository | used git clone to clone the phaser3 library in the root of the game folder | set up server on localhost:8080 using 'python -m http.server' | Linked phaser.min.js at the top in head tags before meta information | Instantiated a new Phaser.Scene as class Example | Set a preload() function to load components from labs.phaser.io assets, and loaded 'sky', sprite/phaser3-logo, red particles. | Called the create() method to add sky, particles, and logo; specifying there properties. Set particles.blendMode: 'ADD', configured speed to 100, and scale start/end endpoints | Set Velocity, Bounce, and Collision properties. | Set the game configuration: type, width, height. Set newly instantiated scene object titled 'Example'. Configured default physics, and adjusted y-axis gravity. Set a constant variable to initialize the new Phaser.Game loop, passing config object properties as a parameter.
+
+    ------------------------------------------------------------------------------------------------>
+
+
+
+    <head>
+        <script src="phaser\dist\phaser-arcade-physics.min.js"></script>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+        <title>Tutorial App | Phaser</title>
+    </head>
+    <body>
+        <script>
+            //"use strict";
+            // Set a Scene Class that extends the Phasor.Scene
+            class Example extends Phaser.Scene {
+                preload(){
+                    this.load.setBaseURL('https://labs.phaser.io');
+                    
+                    this.load.image('sky', 'assets/skies/space3.png'); // asset key : key value is customizable.
+                    this.load.image('logo', 'assets/sprites/phaser3-logo.png');
+                    this.load.image('red', 'assets/particles/red.png');
+                    // Loaded 5 assets, 4 images and a sprite sheet. 
+                    this.load.image('sky', 'assets/sky.png');
+                    this.load.image('ground', 'assets/platform.png');
+                    this.load.image('star', 'assets/star.png');
+                    this.load.image('bomb', 'assets/bomb.png');
+                    this.load.spritesheet('dude', 
+                        'assets/dude.png',
+                        { frameWidth: 32, frameHeight: 48 }
+                    );
+                }
+                // Create particles and logo
+                create(){
+
+                    // this.add.image(400, 300, 'star'); // This would cover up the sky
+                    // this.add.image(400, 300, 'sky');
+                    //this.add.image(0, 0, 'sky').setOrigin(0,0); // x, y // use setOrigin() to change.
+
+                    //this.add.image(400, 300, 'star');
+
+                    // const particles = this.add.particles(0,0, 'red', {
+                    //     speed: 100,
+                    //     scale: {start: 1, end: 0},
+                    //     blendMode: 'ADD'
+                    // });
+
+                    // const logo = this.physics.add.image(400, 100, 'logo');
+                    // logo.setVelocity(100, 200);
+                    // logo.setBounce(1,1);
+                    // logo.setCollideWorldBounds(true);
+
+                    // particles.startFollow(logo);
+
+                    this.add.image(400, 300, 'sky');
+                    platforms = this.physics.add.staticGroup();
+                    platforms.create(400, 568, 'ground').setScale(2).refreshBody();
+
+                    platforms.create(600, 400, 'ground');
+                    platforms.create(50, 250, 'ground');
+                    platforms.create(750, 220, 'ground');
+                }
+            };
+            const config = {
+                type: Phaser.AUTO,
+                width: 800,
+                height: 600,
+                //scene: Example,
+                physics: {
+                    default: 'arcade',
+                    arcade: {
+                        gravity: { y: 300 },
+                        debug: false
+                    }
+                },
+                scene: {
+                    preload: preload,
+                    create: create,
+                    update: update
+                }
+            };
+            const game = new Phaser.Game(config);
+        </script>
+
+
+    </body>
+</html>

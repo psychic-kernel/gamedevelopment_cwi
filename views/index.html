@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!-- Name: Michael A. Robins  -->
+    <!-- Start Date: 2/6/2024 -->
+    <!-- Project: Getting Started With Phaser -->
+    <!-- MOD LOG: ------------------------------------
+        - VERSION     - DATE            - DESCRIPTION
+        ----------------------------------------------
+
+        - 0.5       - 2/6/2024        - Set up Tutorial folder | created index.html file for the starting point of the game | Set up standard meta tags for viewport and character encoding | Initial title for phase 1 set to 'Tutorial App | Phaser' | Used git to initiate a new git repository | used git clone to clone the phaser3 library in the root of the game folder | set up server on localhost:8080 using 'python -m http.server' | Linked phaser.min.js at the top in head tags before meta information | Instantiated a new Phaser.Scene as class Example | Set a preload() function to load components from labs.phaser.io assets, and loaded 'sky', sprite/phaser3-logo, red particles. | Called the create() method to add sky, particles, and logo; specifying there properties. Set particles.blendMode: 'ADD', configured speed to 100, and scale start/end endpoints | Set Velocity, Bounce, and Collision properties. | Set the game configuration: type, width, height. Set newly instantiated scene object titled 'Example'. Configured default physics, and adjusted y-axis gravity. Set a constant variable to initialize the new Phaser.Game loop, passing config object properties as a parameter.
+
+    ------------------------------------------------------------------------------------------------>
+
+
+
+    <head>
+        
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <!-- <script src="phaser\dist\phaser-arcade-physics.js"></script> -->
+        <script src="../phaser/dist/phaser-arcade-physics.min.js"></script>
+        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/phaser/3.70.0/phaser.min.js"  crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
+        <!-- <script src="phaser\dist\phaser.esm.min.js"></script> -->
+        <!-- <script src="https://cdn.jsdelivr.net/npm/phaser@3.60.0/dist/phaser-arcade-physics.min.js"></script> -->
+        <script type="javascript" src="../app.js"></script>
+        <title>Tutorial App | Phaser</title>
+    </head>
+    <body>
+        <script type="module">
+        "use strict";
+            
+            
+            var config = {
+                type: Phaser.AUTO,
+                width: 800,
+                height: 600,
+                physics: {
+                    default: 'arcade',
+                    arcade: {
+                        gravity: { y: 300 },
+                        debug: false
+                    }
+                },
+                scene: {
+                    preload: preload,
+                    create: create,
+                    update: update
+                }
+            };
+            var game = new Phaser.Game(config);
+
+            function preload(){
+                this.load.setBaseURL('https://labs.phaser.io');
+                        
+                // Loaded 5 assets, 4 images and a sprite sheet. 
+                this.load.image('sky', 'assets/sky.png');
+                this.load.image('ground', 'assets/platform.png');
+                this.load.image('star', 'assets/star.png');
+                this.load.image('bomb', 'assets/bomb.png');
+                this.load.spritesheet('dude', 
+                    'assets/dude.png',
+                    { frameWidth: 32, frameHeight: 48 }
+                );
+            }
+            var  platforms;
+            function create() {
+
+                this.add.image(400, 300, 'sky');
+                platforms = this.physics.add.staticGroup();
+                
+                platforms.create(400, 568, 'ground').setScale(2).refreshBody();
+
+                platforms.create(600, 400, 'ground');
+                platforms.create(50, 250, 'ground');
+                platforms.create(750, 220, 'ground');
+            }
+            function update() {
+
+            }
+            
+            
+        </script>
+
+
+    </body>
+</html>
